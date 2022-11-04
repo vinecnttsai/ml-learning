@@ -503,7 +503,7 @@ int main()
         pick(i, 1);
     }//放於初始化
     
-    cout<<"FirstFitness"<<setw(15)<<"FirstLength"<<setw(15)<<"Top100Fitness"<<setw(15)<<"AverFitness"<<setw(15)<<"Top100Length"<<setw(15)<<"AverLength"<<setw(15)<<"generation"<<endl;
+    cout<<"FirstFitness"<<setw(16)<<"FirstLength"<<setw(16)<<"Top100Fitness"<<setw(16)<<"AverFitness"<<setw(16)<<"Top100Length"<<setw(16)<<"AverLength"<<setw(16)<<"generation"<<endl;
     
     while (window.isOpen())
     {
