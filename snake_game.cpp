@@ -4,6 +4,7 @@
 #include <time.h>
 #include <unistd.h>
 #include <math.h>
+#include <iomanip>
 #include <SFML/Graphics.hpp>
 using namespace std;
 using namespace sf;
