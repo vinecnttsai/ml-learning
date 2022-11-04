@@ -536,7 +536,7 @@ int main()
             aver_whole/=batch;
             aver_l/=100;
             aver_l_w/=batch;
-            cout<<head[0].fitness<<setw(15)<<head[0].length<<setw(15)<<aver<<setw(15)<<aver_whole<<setw(15)<<aver_l<<setw(15)<<aver_l_w<<setw(15)<<g<<endl;
+            cout<<head[0].fitness<<"\t\t"<<head[0].length<<"\t\t"<<aver<<"\t\t"<<aver_whole<<"\t\t"<<aver_l<<"\t\t"<<aver_l_w<<"\t\t"<<g<<endl;
             initialization();
             g++;
         }
