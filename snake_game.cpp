@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
-#include "math.h"
+#include <math.h>
 #include <SFML/Graphics.hpp>
 using namespace std;
 using namespace sf;
