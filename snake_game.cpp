@@ -501,7 +501,9 @@ int main()
         head[i].lebal=i;
         pick(i, 1);
     }//放於初始化
-   
+    
+    cout<<"FirstFitness\tFirstLength\tTop100Fitness\tAverFitness\tTop100Length\tAverLength\tgeneration"<<endl;
+    
     while (window.isOpen())
     {
         Event event;
@@ -533,7 +535,7 @@ int main()
             aver_whole/=batch;
             aver_l/=100;
             aver_l_w/=batch;
-            cout<<head[0].fitness<<"\t"<<aver<<"\t"<<aver_whole<<"\t"<<aver_l<<"\t"<<aver_l_w<<"\t"<<g<<endl;
+            cout<<head[0].fitness<<"\t"<<head[0].length<<"\t"<<aver<<"\t"<<aver_whole<<"\t"<<aver_l<<"\t"<<aver_l_w<<"\t"<<g<<endl;
             initialization();
             g++;
         }
