@@ -400,13 +400,13 @@ void genetic_algorithm()
         {
             for(i=0;i<neuron[x]*neuron[x+1];i++)
             {
-                if(head[z].network.n[x].mutation[i]<0.5)head[z].network.n[x].weight[i]=random_();
-                head[z].network.n[x].mutation[i]=rand()%100/100.0;
+                if(head[z].network.n[x].mutation[i]<0.5)head[z].network.n[x].weight[i]+=0.01*random_();
+                head[z].network.n[x].mutation[i]=rand()%1000/1000.0;
             }
             for(i=0;i<neuron[x+1];i++)
             {
-                if(head[z].network.n[x+1].mutation_b[i]<0.5)head[z].network.n[x+1].bias[i]=random_();
-                head[z].network.n[x+1].bias[i]=rand()%100/100.0;
+                if(head[z].network.n[x+1].mutation_b[i]<0.5)head[z].network.n[x+1].bias[i]+=0.01*random_();
+                head[z].network.n[x+1].mutation_b[i]=rand()%1000/1000.0;
             }
         }
     }
