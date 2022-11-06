@@ -503,7 +503,7 @@ int main()
         pick(i, 1);
     }//放於初始化
     
-    cout<<"FirstFitness"<<setw(16)<<"FirstLength"<<setw(16)<<"Top100Fitness"<<setw(16)<<"AverFitness"<<setw(16)<<"Top100Length"<<setw(16)<<"AverLength"<<setw(16)<<"generation"<<endl;
+    cout<<setw(16)<<"FirstFitness"<<setw(16)<<"FirstLength"<<setw(16)<<"Top100Fitness"<<setw(16)<<"AverFitness"<<setw(16)<<"Top100Length"<<setw(16)<<"AverLength"<<setw(16)<<"generation"<<endl;
     
     while (window.isOpen())
     {
@@ -536,7 +536,7 @@ int main()
             aver_whole/=batch;
             aver_l/=100;
             aver_l_w/=batch;
-            cout<<head[0].fitness<<"\t\t"<<head[0].length<<"\t\t"<<aver<<"\t\t"<<aver_whole<<"\t\t"<<aver_l<<"\t\t"<<aver_l_w<<"\t\t"<<g<<endl;
+            cout<<setw(16)<<head[0].fitness<<setw(16)<<head[0].length<<setw(16)<<aver<<setw(16)<<aver_whole<<setw(16)<<aver_l<<setw(16)<<aver_l_w<<setw(16)<<g<<endl;
             initialization();
             g++;
         }
