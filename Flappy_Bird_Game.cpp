@@ -9,9 +9,10 @@
 #include <thread>
 using namespace std;
 using namespace sf;
-int size=1500,gravity=-10,jump_height=12,speed=5,r=50,wid=100,v_next_dis,v_next,pipe_dis,world_dis,fail_count,batch=28,generation;
+int size=1500,gravity=-10,jump_height=12,speed=5,r=50,wid=100,v_next_dis,v_next,pipe_dis,world_dis,fail_count,batch=1,generation;
 const int input=4,pipe_speed=4;
 RenderWindow window(VideoMode(size, size), "flappy bird");
+/*
 const int layer_num=1;
 int neuron[layer_num+2]={input,3,1};
 float random_()
@@ -89,7 +90,7 @@ void neural_network::update(float x[])
     }
 }
 
-
+*/
 
 
 class pipe
@@ -155,7 +156,7 @@ class bird
         float x[input],mutation;
         bool fail;
         Vertex line[2][2];
-        neural_network network;
+        //neural_network network;
         bird();
         void update();
         ~bird(){};
@@ -220,9 +221,9 @@ void bird::update()
             x[i]=(x[i]-aver)/sd;
         }//標準化
        
-        network.update(x);
+        //network.update(x);
         world_pos+=speed;
-        if(network.n[layer_num+1].node[0]>0.5)
+        if(Mouse::isButtonPressed(Mouse::Left))
         {
             height-=jump_height;
         }
@@ -246,7 +247,7 @@ void bird::update()
    
 }
 bird *b=new bird[batch];
-
+/*
 void print_weight()
 {
     for(int x=0;x<batch;x++)
@@ -371,7 +372,7 @@ void genetic_algorithm()
    
 }
 
-
+*/
 
 void initialization()
 {
@@ -379,6 +380,7 @@ void initialization()
     v_next_dis=size/2-r+wid;
     v_next=0;
     world_dis=0;
+    /*
     for(int z=0;z<batch;z++)
     {
         b[z].world_pos=0;
@@ -388,6 +390,7 @@ void initialization()
         b[z].mutation=rand()%1000/1000.0;
         b[z].select=0;
     }
+    */
     v.clear();
 }
 int main()
@@ -431,17 +434,17 @@ int main()
                 v_next-=1;
             }
         }
-       
+        /*
         for(int z=0;z<batch;z++)
         {
             b[z].update();
         }
-        
+        */
        
         if(fail_count!=batch)world_dis+=speed;
         else if(fail_count==batch)
         {
-            genetic_algorithm();
+            /*genetic_algorithm();
             generation++;
             cout<<"generation: "<<generation<<endl;
             /*
