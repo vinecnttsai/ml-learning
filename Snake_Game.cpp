@@ -190,7 +190,7 @@ int head_coordinate::calculate()
                 }
             }
             if(!flag)temp=0;
-            else temp=1;
+            //else temp=1;
             x[8*i+k]=temp;
             temp=0;
         }
