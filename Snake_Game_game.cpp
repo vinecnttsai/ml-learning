@@ -13,87 +13,6 @@ const int batch=1,window_size=1500,map_size=38,size_rectangle=window_size/(map_s
 int neuro_dir[8][2]={{1,0},{-1,0},{0,1},{0,-1},{1,1},{-1,-1},{-1,1},{1,-1}};
 float crossover_50[3]={0.2,0.1,0.0};
 RenderWindow window(VideoMode(window_size, window_size), "snake game");
-/*
-const int layer_num=2,input=30;
-int neuron[layer_num+2]={input,16,12,4};
-float random_()
-{
-    if(rand()%2==0)
-    {
-        return -1.0*(rand()%400000/100000.0);
-    }
-    else
-    {
-        return (rand()%400000/100000.0);
-    }
-}
-float sigmoid(float x)
-{
-    return (1 / (1 + exp(-x)));
-}
-float relu(float x)
-{
-    return x>0?x:0;
-}
-class layer
-{
-    public:
-        vector<double> node,bias,weight,mutation,mutation_b;
-        int i;
-    ~layer(){};
-};
-class neural_network
-{
-    public:
-        int i,k;
-        neural_network();
-        layer n[layer_num+2];
-        void update(float x[]);
-    ~neural_network(){};
-};
-neural_network::neural_network()
-{
-    for(i=0;i<layer_num+2;i++)
-    {
-        for(k=0;k<neuron[i];k++)
-        {
-            n[i].node.push_back(0.0);
-        }
-        if(i<layer_num+1)
-        {
-            for(k=0;k<neuron[i]*neuron[i+1];k++)
-            {
-                n[i].weight.push_back(random_());
-                n[i].mutation.push_back(rand()%100/100.0);
-            }
-            for(k=0;k<neuron[i+1];k++)
-            {
-                n[i+1].bias.push_back(random_());
-                n[i+1].mutation_b.push_back(rand()%100/100.0);
-            }
-        }
-    }
-}
-
-
-void neural_network::update(float x[])
-{
-    for(i=0;i<neuron[0];i++)n[0].node[i]=x[i];
-   
-    for(i=0;i<layer_num+1;i++)
-    {
-        for(k=0;k<neuron[i]*neuron[i+1];k++)
-        {
-            n[i+1].node[k%neuron[i+1]]+=n[i].node[k/neuron[i+1]]*n[i].weight[k];
-        }
-        for(k=0;k<neuron[i+1];k++)
-        {
-            n[i+1].node[k]=tanh(n[i+1].node[k]+n[i+1].bias[k]);
-        }
-    }
-}
-
-*/
 class _map
 {
     public:
@@ -118,9 +37,7 @@ class head_coordinate
     public :
         head_coordinate();
         void initialization(int l);
-        //int calculate();
         bool check();
-        //neural_network network;
         int posa,posb,fail,fruit_a,fruit_b,step,select,lebal,walk_step,length;
         float fitness,x[input],mutation;
 };
@@ -146,105 +63,6 @@ void head_coordinate::initialization(int l)
     lebal=l;
     walk_step=max_step;
 }
-/*
-int head_coordinate::calculate()
-{
-    float aver=0,sd=0,temp=0,temp2=0;
-    int a=posa,b=posb;
-    bool flag;
-    
-    for(int i=0;i<3;i++)
-    {
-        for(int k=0;k<8;k++)
-        {
-            a=posa;
-            b=posb;
-            flag=false;
-            if(i==0)
-            {
-                while(true)
-                {
-                    if(!check_border(a, b))
-                    {
-                        if(k>=4)temp*=sqrt(2);
-                        flag=true;
-                        break;
-                    }
-                    a+=neuro_dir[k][0];
-                    b+=neuro_dir[k][1];
-                    temp+=1.0;
-                }
-            }
-            else if(i>0)
-            {
-                while(check_border(a, b))
-                {
-                   
-                    if((map_[a][b].id[lebal]==i)&&(a!=posa||b!=posb))
-                    {
-                        if(k>=4)temp*=sqrt(2);
-                        flag=true;
-                        break;
-                    }
-                    a+=neuro_dir[k][0];
-                    b+=neuro_dir[k][1];
-                    temp+=1.0;
-                }
-            }
-            if(!flag)temp=0;
-            else temp=1;
-            x[8*i+k]=temp;
-            temp=0;
-        }
-    }
-    x[24]=posa;
-    x[25]=posb;
-    x[26]=fruit_a;
-    x[27]=fruit_b;
-    x[28]=fruit_a-posa;
-    x[29]=fruit_b-posb;
-    /*
-    for(int i=0;i<input;i++)
-    {
-        if(x[i])
-        {
-            aver+=x[i];
-            temp2++;
-        }
-    }
-    aver/=float(temp2);
-    for(int i=0;i<input;i++)
-    {
-        if(x[i])sd+=pow(x[i]-aver,2);
-    }
-    sd/=float(temp2);
-    sd=sqrt(sd);
-    for(int i=0;i<input;i++)
-    {
-        if(x[i])x[i]=(x[i]-aver)/sd;
-    }//標準化
-    
-    for(int i=0;i<input;i++)
-    {
-        if(x[i])x[i]=1.0/x[i];
-    }
-   
-   
-    network.update(x);
-    
-    float max_=network.n[layer_num+1].node[0];
-    int node=0;
-    for(int i=0;i<4;i++)
-    {
-        if(max_<network.n[layer_num+1].node[i])
-        {
-            max_=network.n[layer_num+1].node[i];
-            node=i;
-        }
-    }
-    return node;
-}
-*/
 void pick(int num,int time)
 {
     int i,k;
@@ -277,7 +95,6 @@ class snake
 };
 snake::snake(int prev_dir,int prev_a,int prev_b,int l,int n)
 {
-    //找相反方向
     posa=prev_a+-1*dir[prev_dir][0];
     posb=prev_b+-1*dir[prev_dir][1];
            
@@ -301,121 +118,6 @@ void snake::update(int direction_)
     }
 }
 vector<snake> v[batch];
-/*
-void crossover(int parent,int child,int time)
-{
-    int z,x,p=parent;
-    while(time--)
-    {
-        for(z=0;z<layer_num+1;z++)
-        {
-            for(x=0;x<neuron[z]*neuron[z+1];x++)
-            {
-                if(rand()%2==0)p--;
-                head[child].network.n[z].weight[x]=head[p].network.n[z].weight[x];
-                head[child-1].network.n[z].weight[x]=head[p].network.n[z].weight[x];
-                p=parent;
-               
-            }
-            for(x=0;x<neuron[z+1];x++)
-            {
-                if(rand()%2==0)p--;
-                head[child].network.n[z+1].bias[x]=head[p].network.n[z+1].bias[x];
-                head[child-1].network.n[z+1].bias[x]=head[p].network.n[z+1].bias[x];
-                p=parent;
-            }
-        }
-        child-=2;
-    }
-}
-bool cmp(head_coordinate h1,head_coordinate h2)
-{
-    if(h1.select==h2.select)return h1.fitness>h2.fitness;
-    else return h1.select>h2.select;
-}
-void selection(int selected)
-{
-    int i,k;
-    while(selected!=batch)
-    {
-        i=rand()%batch;
-        k=rand()%batch;
-        if((!head[i].select&&!head[k].select)&&i!=k)
-        {
-            if(i<k)
-            {
-                head[i].select=2;
-                head[k].select=1;
-            }
-            else
-            {
-                head[i].select=1;
-                head[k].select=2;
-            }
-            selected+=2;
-        }
-       
-    }
-}
-void genetic_algorithm()
-{
-    int i,k,z,x,remain=batch*percent/100.0;
-    sort(head,head+batch,cmp);
-   
-    //保留一定百分比
-    for(i=0;i<remain;i++)
-    {
-        head[i].select=2;
-        head[batch-1-i].select=1;
-    }
-   
-    selection(remain*2);
-    //selection
-   
-    sort(head,head+batch,cmp);
-    int p_pos=batch/2-1,now=0,c_pos=batch-1;
-    while(p_pos>0)
-    {
-        if(p_pos/(1.0*batch)<crossover_50[now])now++;
-        crossover(p_pos, c_pos, pow(2,now));
-        p_pos-=2;
-        c_pos-=pow(2,now+1);
-    }
-   
-    for(z=remain;z<batch;z++)
-    {
-        if(head[z].mutation<0.75)
-        {
-            for(x=0;x<layer_num+1;x++)
-            {
-                i=rand()%neuron[x];
-                k=rand()%neuron[x+1];
-                head[z].network.n[x].weight[i]+=0.01*random_();
-                head[z].network.n[x+1].bias[k]+=0.01*random_();
-            }
-        }
-    }//mutation
-    //mutation2
-    /*
-    for(z=remain;z<batch;z++)
-    {
-        for(x=0;x<layer_num+1;x++)
-        {
-            for(i=0;i<neuron[x]*neuron[x+1];i++)
-            {
-                if(head[z].network.n[x].mutation[i]<0.5)head[z].network.n[x].weight[i]+=0.01*random_();
-                head[z].network.n[x].mutation[i]=rand()%1000/1000.0;
-            }
-            for(i=0;i<neuron[x+1];i++)
-            {
-                if(head[z].network.n[x+1].mutation_b[i]<0.5)head[z].network.n[x+1].bias[i]+=0.01*random_();
-                head[z].network.n[x+1].mutation_b[i]=rand()%1000/1000.0;
-            }
-        }
-    }
-    
-}
-*/
 void draw_map()
 {
     RectangleShape r2,r3;
