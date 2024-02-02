@@ -5,14 +5,14 @@
 #include <unistd.h>
 #include <math.h>
 #include <iomanip>
-//#include <SFML/Graphics.hpp>
+#include <SFML/Graphics.hpp>
 using namespace std;
-//using namespace sf;
+using namespace sf;
 int dir[5][2]={{1,0},{-1,0},{0,1},{0,-1},{0,0}},fail_count,keyboard=4,percent=10,g=1;
 const int batch=2000,window_size=1500,map_size=38,size_rectangle=window_size/(map_size+2),max_step=(map_size+2)*10;
 int neuro_dir[8][2]={{1,0},{-1,0},{0,1},{0,-1},{1,1},{-1,-1},{-1,1},{1,-1}};
 float crossover_50[3]={0.2,0.1,0.0};//交配時前50%所生子代佔比
-//RenderWindow window(VideoMode(window_size, window_size), "snake game");
+RenderWindow window(VideoMode(window_size, window_size), "snake game");
 const int layer_num=2,input=30;
 int neuron[layer_num+2]={input,16,12,4};
 float random_()
@@ -265,7 +265,7 @@ class snake
     public :
         snake(int prev_dir,int prev_a,int prev_b,int l,int n);
         int direction,posa,posb,lebal,num,prev_dir;
-        //RectangleShape r;
+        RectangleShape r;
         void update(int direction_);
         int caculate();
         ~snake(){};
@@ -278,8 +278,8 @@ snake::snake(int prev_dir,int prev_a,int prev_b,int l,int n)
             
     lebal=l;//貪食蛇編號
     num=n;//屬於第幾節
-    //r.setFillColor(Color::Black);
-    //r.setSize(Vector2f(size_rectangle,size_rectangle));
+    r.setFillColor(Color::Black);
+    r.setSize(Vector2f(size_rectangle,size_rectangle));
 }
 void snake::update(int direction_)
 {
@@ -288,14 +288,14 @@ void snake::update(int direction_)
     direction=direction_;
     posa+=dir[direction][0];
     posb+=dir[direction][1];
-    /*
+    
     if(check_border(posa, posb)&&lebal<50)
     {
         r.setPosition((posa+1)*size_rectangle,(posb+1)*size_rectangle);
         window.draw(r);
         
     }
-    */
+    
 }
 vector<snake> v[batch];
 
@@ -394,7 +394,7 @@ void genetic_algorithm()
             }
         }
     }
-    */
+    *///mutation1
     for(z=0;z<batch;z++)
     {
         for(x=0;x<layer_num+1;x++)
@@ -410,10 +410,10 @@ void genetic_algorithm()
                 head[z].network.n[x+1].mutation_b[i]=rand()%100/100.0;//bias的mutation
             }
         }
-    }//mutation
+    }//mutation2
     
 }
-/*
+
 void draw_map()
 {
     RectangleShape r2,r3;
@@ -443,7 +443,7 @@ void draw_map()
     window.draw(r3);
     //顯示邊界
 }
- */
+
 void create_snake(int i)
 {
     snake *n=new snake(v[i][v[i].size()-1].direction,v[i][v[i].size()-1].posa,v[i][v[i].size()-1].posb,i,v[i].size());
@@ -507,9 +507,8 @@ int main()
         head[i].lebal=i;
         pick(i, 1);
     }//放於初始化
-    while(g<=400)
-    {
-    /*while (window.isOpen())
+    
+    while (window.isOpen())
     {
         Event event;
     
@@ -546,18 +545,19 @@ int main()
             g++;//generation
         }
 
-        /*
+        
         if(g>800)usleep(10000);
     
         window.clear(Color::White);
-         
+         /*
         if(Keyboard::isKeyPressed(Keyboard::W))keyboard=3;
         else if(Keyboard::isKeyPressed(Keyboard::S))keyboard=2;
         else if(Keyboard::isKeyPressed(Keyboard::A))keyboard=1;
         else if(Keyboard::isKeyPressed(Keyboard::D))keyboard=0;
         //鍵盤控制
+        */
         draw_map();
-         */
+         
         for(i=0;i<batch;i++)
         {
             if(!head[i].fail)
@@ -611,7 +611,7 @@ int main()
             }
         }//更新除頭之外身體的移動
     
-        //window.display();
+        window.display();
     }
 
     return 0;
