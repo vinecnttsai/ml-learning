@@ -401,12 +401,12 @@ void genetic_algorithm()
         {
             for(i=0;i<neuron[x]*neuron[x+1];i++)
             {
-                if(head[z].network.n[x].mutation[i]<0.01)head[z].network.n[x].weight[i]+=random_()*0.01;
+                if(head[z].network.n[x].mutation[i]<0.1)head[z].network.n[x].weight[i]+=random_()*0.01;
                 head[z].network.n[x].mutation[i]=rand()%100/100.0;//weight的mutation
             }
             for(i=0;i<neuron[x+1];i++)
             {
-                if(head[z].network.n[x+1].mutation_b[i]<0.01)head[z].network.n[x+1].bias[i]+=random_()*0.01;
+                if(head[z].network.n[x+1].mutation_b[i]<0.1)head[z].network.n[x+1].bias[i]+=random_()*0.01;
                 head[z].network.n[x+1].mutation_b[i]=rand()%100/100.0;//bias的mutation
             }
         }
